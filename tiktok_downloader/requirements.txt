@@ -3,3 +3,6 @@ requests
 beautifulsoup4
 tabulate
 flask
+flask-wtf
+flask-bootstrap
+python-dotenv

@@ -3,37 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection: {{ collection_name }}</title>
+    <title>TikTok Downloader</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Collection: {{ collection_name }}</h1>
+    <h1>TikTok Video Downloader</h1>
 
-    <form method="GET">
-        <input type="text" name="search" placeholder="Search..." value="{{ request.args.get('search', '') }}">
-        <button type="submit">Search</button>
-    </form>
+    <!-- Form to submit TikTok URL and collection name (only on the main page) -->
+    {% if form %}
+        <form method="POST" action="{{ url_for('index') }}">
+            {{ form.hidden_tag() }}
+            <label for="url">Enter TikTok Video or Collection URL:</label>
+            {{ form.url(class="form-control") }}
+            <label for="collection_name">Enter Collection Name (Destination Folder):</label>
+            {{ form.collection_name(class="form-control") }}
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    {% endif %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>File Name</th>
-                <th>Size (MB)</th>
-                <th>Author</th>
-                <th>Upload Date</th>
-                <th>Stream</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for file in files %}
-            <tr>
-                <td>{{ file.name }}</td>
-                <td>{{ file.size }}</td>
-                <td>{{ file.author }}</td>
-                <td>{{ file.date }}</td>
-                <td><a href="{{ file.url }}" target="_blank">Play</a></td>
-            </tr>
+    <!-- Display flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
             {% endfor %}
-        </tbody>
-    </table>
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Display list of collections -->
+    <h2>Collections</h2>
+    <ul>
+        {% for collection in collections %}
+            <li><a href="{{ url_for('view_collection', collection_name=collection) }}">{{ collection }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% if files %}
+        <!-- Display table of files in the selected collection -->
+        <h3>Videos in {{ collection_name }}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Size (MB)</th>
+                    <th>Author</th>
+                    <th>Upload Date</th>
+                    <th>Stream</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td>{{ file.name }}</td>
+                    <td>{{ file.size }}</td>
+                    <td>{{ file.author }}</td>
+                    <td>{{ file.date }}</td>
+                    <td><a href="{{ file.url }}" target="_blank">Play</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 </body>
 </html>
