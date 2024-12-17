@@ -4,32 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collection: {{ collection_name }}</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        a {
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
     <h1>Collection: {{ collection_name }}</h1>
+
+    <form method="GET">
+        <input type="text" name="search" placeholder="Search..." value="{{ request.args.get('search', '') }}">
+        <button type="submit">Search</button>
+    </form>
+
     <table>
         <thead>
             <tr>
@@ -52,6 +35,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ url_for('index') }}">Back to Collections</a>
 </body>
 </html>

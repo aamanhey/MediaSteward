@@ -126,3 +126,11 @@ docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader collectio
 
 ## Resources
 - https://pypi.org/project/yt-dlp/#output-template
+
+def load_collection_metadata(collection_path, collection_name):
+    """Load metadata from collection.json in the selected collection folder."""
+    metadata_file = os.path.join(collection_path, f"{collection_name}.json")
+    if os.path.exists(metadata_file):
+        with open(metadata_file, "r") as f:
+            return json.load(f).get("videos", [])
+    return []
