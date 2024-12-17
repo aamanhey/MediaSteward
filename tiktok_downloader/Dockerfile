@@ -12,5 +12,12 @@ COPY . /app
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Expose Flask server port
+EXPOSE 5000
+
 # Step 5: Set the command to run the program
-ENTRYPOINT ["python", "tiktok_downloader.py"]
+# Use ENTRYPOINT to default to "python"
+ENTRYPOINT ["python"]
+
+# Use CMD to allow specifying which script to run
+CMD ["tiktok_downloader.py"]

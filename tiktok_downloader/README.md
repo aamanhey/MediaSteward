@@ -87,18 +87,7 @@ After running the command:
     Video Catalog:
         Maintain a catalog.json file that organizes metadata for all downloaded videos.
 
-https://pypi.org/project/yt-dlp/#output-template
-
- docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader list  " "
-
-
-docker run --rm -v "$(pwd)/downloads:/app/downloads" -v "$(pwd)/catalog.json:/app/catalog.json" tiktok_downloader video "https://www.tiktok.com/@janro_2109/video/7445809155136326917"
-
-docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader collection "https://www.tiktok.com/@adrianmanhey/collection/Los%20Angeles-7327482342845483819?lang=en"
-
-docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader collection https://www.tiktok.com/@adrianmanhey/collection/
-
-Commands
+## Commands
 Build the project
 docker build -t tiktok_downloader .
 
@@ -110,13 +99,30 @@ docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader sdcollect
 
 Read a TikTok collection from JSON.
 docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader list " " "skim_clips/skim_clips.json"
-C:\Users\Adrian Angelo Manhey\Documents\TikTok Video Saver\tiktok_downloader\downloads\skim_clips\skim_clips
-Collections
-12
-https://www.tiktok.com/@adrianmanhey/collection/Los%20Angeles-7327482342845483819?lang=en
-104
-https://www.tiktok.com/@adrianmanhey/collection/Clips-7350903529052425006?is_from_webapp=1&sender_device=pc
-941
-https://www.tiktok.com/@adrianmanhey/collection/UP-7287386486037662507?lang=en
-153
-https://www.tiktok.com/@adrianmanhey/collection/Brain-7247113726611180334?lang=en
+
+Step 6: Build and Run the Web Server
+
+    Build the Docker image:
+
+docker build -t file_streamer .
+
+    Run the container:
+
+docker run --rm -p 5000:5000 -v "$(pwd)/downloads:/app/downloads" tiktok_downloader media_streamer/server.py
+
+docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader list  " "
+
+docker run --rm -v "$(pwd)/downloads:/app/downloads" -v "$(pwd)/catalog.json:/app/catalog.json" tiktok_downloader video "https://www.tiktok.com/@janro_2109/video/7445809155136326917"
+
+docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader collection "https://www.tiktok.com/@adrianmanhey/collection/Los%20Angeles-7327482342845483819?lang=en"
+
+docker run --rm -v "$(pwd)/downloads:/app/downloads" tiktok_downloader collection https://www.tiktok.com/@adrianmanhey/collection/
+
+## Collections
+- https://www.tiktok.com/@adrianmanhey/collection/Los%20Angeles-7327482342845483819?lang=en
+- https://www.tiktok.com/@adrianmanhey/collection/Clips-7350903529052425006?is_from_webapp=1&sender_device=pc
+- https://www.tiktok.com/@adrianmanhey/collection/UP-7287386486037662507?lang=en
+- https://www.tiktok.com/@adrianmanhey/collection/Brain-7247113726611180334?lang=en
+
+## Resources
+- https://pypi.org/project/yt-dlp/#output-template
