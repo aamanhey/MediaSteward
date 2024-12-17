@@ -49,7 +49,42 @@ def run_downloader(url, collection_name):
 
     try:
         # Download the collection or video and save it to the collection folder
-        subprocess.run(["yt-dlp", "-o", os.path.join(collection_folder, "%(id)s.%(ext)s"), url], check=True)
+        # Use yt-dlp to download and write metadata
+        subprocess.run(["yt-dlp", "-o", os.path.join(collection_folder, "%(id)s.%(ext)s"), "--write-info-json", url], check=True)
+
+        # Now extract metadata and save it as a JSON file
+        # yt-dlp outputs a JSON metadata file for each video downloaded
+        metadata_file = os.path.join(collection_folder, f"{collection_name}.json")
+        
+        # Create the metadata file for the collection if it doesn't exist
+        if not os.path.exists(metadata_file):
+            metadata = {"videos": []}
+        else:
+            with open(metadata_file, 'r') as f:
+                metadata = json.load(f)
+        
+        # Retrieve the info.json for the downloaded video(s)
+        info_json_file = os.path.join(collection_folder, "%(id)s.info.json")
+        
+        # Assuming yt-dlp was able to download the video metadata as a JSON file
+        for video_file in os.listdir(collection_folder):
+            if video_file.endswith('.info.json'):
+                video_id = extract_video_id_from_filename(video_file)
+                
+                with open(os.path.join(collection_folder, video_file), 'r') as json_file:
+                    video_info = json.load(json_file)
+                    metadata['videos'].append({
+                        "url": video_info.get('webpage_url'),
+                        "author": video_info.get('uploader'),
+                        "upload_date": video_info.get('upload_date'),
+                        "title": video_info.get('title'),
+                        "size": video_info.get('filesize'),
+                    })
+        
+        # Save updated metadata
+        with open(metadata_file, 'w') as f:
+            json.dump(metadata, f, indent=4)
+    
     except subprocess.CalledProcessError as e:
         flash(f"Error downloading the video or collection: {e}", 'danger')
 
