@@ -161,3 +161,4 @@ cython_debug/
 
 # Video Files
 tiktok_downloader/downloads/
+tiktok_downloader/video_parser/data
