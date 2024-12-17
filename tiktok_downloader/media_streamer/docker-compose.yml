@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./:/app
+      - user_files:/app/user_cache
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=your_secret_key
+  
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+
+volumes:
+  user_files:
