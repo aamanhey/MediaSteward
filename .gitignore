@@ -163,3 +163,5 @@ cython_debug/
 tiktok_downloader/downloads/
 /tiktok_downloader/media_streamer/.ssh
 /tiktok_downloader/video_parser/data
+/data-ecosystem/frontend/node_modules
+/data-ecosystem/node_modules
