@@ -161,3 +161,5 @@ cython_debug/
 
 # Video Files
 tiktok_downloader/downloads/
+/tiktok_downloader/media_streamer/.ssh
+/tiktok_downloader/video_parser/data
