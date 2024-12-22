@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import GraphPage from "./pages/index";
+import SimpleGraph from "./pages/simple";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">My site!</a>
         </h1>
+        <SimpleGraph />
         <GraphPage />
       </main>
       <footer className={styles.footer}>

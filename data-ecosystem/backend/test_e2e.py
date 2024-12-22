@@ -5,7 +5,7 @@ BACKEND_URL = "http://localhost:8000"
 
 def test_load_state():
     # Load the initial state
-    with open("test_state.json", "r") as f:
+    with open("test2_state.json", "r") as f:
         state = json.load(f)
 
     response = requests.post(f"{BACKEND_URL}/load_state/", json=state)
