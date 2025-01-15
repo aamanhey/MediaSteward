@@ -1,0 +1,31 @@
+{
+  "nodes": [
+    {"id": "1", "label": "Group A", "lat": 51.505, "lng": -0.09},
+    {"id": "2", "label": "Group B", "lat": 51.515, "lng": -0.1},
+    {"id": "3", "label": "Group C", "lat": 51.525, "lng": -0.11},
+    {"id": "4", "label": "Group D", "lat": 51.535, "lng": -0.12},
+    {"id": "5", "label": "Group E", "lat": 51.545, "lng": -0.13},
+    {"id": "6", "label": "Group F", "lat": 51.555, "lng": -0.14},
+    {"id": "7", "label": "Group G", "lat": 51.565, "lng": -0.15},
+    {"id": "8", "label": "Group H", "lat": 51.575, "lng": -0.16},
+    {"id": "9", "label": "Group I", "lat": 51.585, "lng": -0.17},
+    {"id": "10", "label": "Group J", "lat": 51.595, "lng": -0.18}
+  ],
+  "links": [
+    {"source": "1", "target": "2"},
+    {"source": "2", "target": "3"},
+    {"source": "3", "target": "4"},
+    {"source": "4", "target": "5"},
+    {"source": "5", "target": "6"},
+    {"source": "6", "target": "7"},
+    {"source": "7", "target": "8"},
+    {"source": "8", "target": "9"},
+    {"source": "9", "target": "10"},
+    {"source": "10", "target": "1"},
+    {"source": "1", "target": "5"},
+    {"source": "2", "target": "6"},
+    {"source": "3", "target": "7"},
+    {"source": "4", "target": "8"},
+    {"source": "5", "target": "9"}
+  ]
+}
